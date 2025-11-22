@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fence Installation Cost Calculator - AED</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --success-color: #2ecc71;
+            --uae-green: #008753;
+            --uae-red: #ce1126;
+            --uae-black: #000000;
+            --uae-white: #FFFFFF;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--uae-green) 0%, var(--uae-red) 100%);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .currency-selector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        
+        .aed-currency {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .app-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .input-section, .results-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-color);
+            color: var(--primary-color);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .checkbox-group input {
+            width: auto;
+        }
+        
+        .btn {
+            background-color: var(--uae-green);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            background-color: #006b41;
+        }
+        
+        .btn-print {
+            background-color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .btn-print:hover {
+            background-color: #2980b9;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .result-card {
+            background-color: var(--light-color);
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            border-left: 4px solid var(--uae-green);
+        }
+        
+        .result-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 10px 0;
+        }
+        
+        .result-label {
+            font-size: 0.9rem;
+            color: var(--dark-color);
+        }
+        
+        .breakdown-section {
+            margin-top: 25px;
+        }
+        
+        .breakdown-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        .breakdown-table th, .breakdown-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .breakdown-table th {
+            background-color: var(--light-color);
+            font-weight: 600;
+        }
+        
+        .highlight {
+            background-color: rgba(52, 152, 219, 0.1);
+            font-weight: 600;
+        }
+        
+        .total-row {
+            font-weight: 700;
+            font-size: 1.1rem;
+            background-color: rgba(0, 135, 83, 0.1);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: var(--dark-color);
+            font-size: 0.9rem;
+        }
+        
+        .cost-breakdown {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+        
+        .cost-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .cost-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cost-label {
+            font-weight: 600;
+        }
+        
+        .cost-value {
+            font-weight: 600;
+            color: var(--uae-green);
+        }
+        
+        .note {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        .post-details {
+            background-color: #f0f8ff;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+        
+        .post-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .post-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .post-input-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .post-input-group label {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .post-summary {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+        }
+        
+        .weight-toggle {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .toggle-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .toggle-option input {
+            width: auto;
+        }
+        
+        /* Print Styles for A4 Paper */
+        @media print {
+            body * {
+                visibility: hidden;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .print-section, .print-section * {
+                visibility: visible;
+            }
+            
+            .print-section {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                padding: 15mm;
+                background: white;
+                font-size: 12pt;
+                line-height: 1.4;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            .btn {
+                display: none;
+            }
+            
+            /* A4 page size */
+            @page {
+                size: A4;
+                margin: 15mm;
+            }
+            
+            .print-header {
+                text-align: center;
+                margin-bottom: 20px;
+                padding-bottom: 10px;
+                border-bottom: 2px solid var(--uae-green);
+            }
+            
+            .print-header h1 {
+                font-size: 20pt;
+                margin-bottom: 5px;
+            }
+            
+            .print-header p {
+                font-size: 11pt;
+                color: #666;
+            }
+            
+            .print-summary {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+            
+            .print-summary-item {
+                background-color: #f9f9f9;
+                padding: 10px;
+                border-radius: 4px;
+                border-left: 4px solid var(--uae-green);
+                font-size: 10pt;
+            }
+            
+            .print-summary-item h3 {
+                font-size: 12pt;
+                margin-bottom: 8px;
+                border-bottom: 1px solid #ddd;
+                padding-bottom: 5px;
+            }
+            
+            .print-details {
+                margin-bottom: 15px;
+            }
+            
+            .print-details h3 {
+                font-size: 13pt;
+                margin-bottom: 8px;
+                border-bottom: 1px solid #ddd;
+                padding-bottom: 5px;
+            }
+            
+            .print-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 8px;
+                font-size: 10pt;
+            }
+            
+            .print-table th, .print-table td {
+                padding: 8px 10px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+            
+            .print-table th {
+                background-color: #f0f0f0;
+                font-weight: 600;
+            }
+            
+            .print-footer {
+                text-align: center;
+                margin-top: 20px;
+                padding-top: 10px;
+                border-top: 1px solid #ddd;
+                font-size: 9pt;
+                color: #666;
+                position: absolute;
+                bottom: 15mm;
+                left: 15mm;
+                right: 15mm;
+            }
+            
+            /* Compact layout adjustments */
+            .print-summary-item p {
+                margin-bottom: 4px;
+            }
+            
+            .print-table tr:last-child td {
+                border-bottom: none;
+            }
+        }
+        
+        .print-section {
+            display: none;
+        }
+        
+        .print-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--uae-green);
+        }
+        
+        .print-summary {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .print-summary-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid var(--uae-green);
+        }
+        
+        .print-details {
+            margin-bottom: 30px;
+        }
+        
+        .print-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .print-table th, .print-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .print-table th {
+            background-color: var(--light-color);
+            font-weight: 600;
+        }
+        
+        .print-footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>Cost Calculator</h1>
+                <p class="subtitle">Calculate the total cost of fence installation including gates and materials</p>
+                <div class="currency-selector">
+                    <span class="aed-currency">Currency: AED </span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="app-container">
+            <section class="input-section">
+                <h2 class="section-title">Project Details</h2>
+                
+                <div class="form-group">
+                    <label for="distance">Distance (KM):</label>
+                    <input type="number" id="distance" value="0" step="0.1" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="rate">Rate per KM (AED):</label>
+                    <input type="number" id="rate" value="0" step="0.01" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="serviceType">Service Type:</label>
+                    <select id="serviceType">
+                        <option value="standard">Standard Installation</option>
+                        <option value="premium">Premium Installation</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="installation">
+                        <label for="installation">Include Installation?</label>
+                    </div>
+                </div>
+                
+                <h2 class="section-title">Post Details</h2>
+                
+                <div class="post-details">
+                    <div class="post-header">Post Specifications</div>
+                    
+                    <div class="weight-toggle">
+                        <div class="toggle-option">
+                            <input type="radio" id="autoWeight" name="weightType" value="auto" checked>
+                            <label for="autoWeight">Calculate Weight Automatically</label>
+                        </div>
+                        <div class="toggle-option">
+                            <input type="radio" id="manualWeight" name="weightType" value="manual">
+                            <label for="manualWeight">Enter Total Weight Manually</label>
+                        </div>
+                    </div>
+                    
+                    <div class="post-row">
+                        <div class="post-input-group">
+                            <label for="postQty">Number of Posts:</label>
+                            <input type="number" id="postQty" value="0" min="1">
+                        </div>
+                        
+                        <div class="post-input-group" id="individualWeightGroup">
+                            <label for="postWeight">Weight per Post (kg):</label>
+                            <input type="number" id="postWeight" value="0" step="0.01" min="0">
+                        </div>
+                        
+                        <div class="post-input-group" id="totalWeightGroup" style="display: none;">
+                            <label for="totalPostWeightInput">Total Post Weight (kg):</label>
+                            <input type="number" id="totalPostWeightInput" value="0" step="0.01" min="0">
+                        </div>
+                    </div>
+                    
+                    <div class="post-row">
+                        <div class="post-input-group">
+                            <label for="postValue">Value per Post (AED):</label>
+                            <input type="number" id="postValue" value="0" step="0.01" min="0">
+                        </div>
+                        
+                        <div class="post-input-group">
+                            <label for="calculatedWeight">Calculated Total Weight (kg):</label>
+                            <input type="number" id="calculatedWeight" value="0" step="0.01" min="0" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="post-summary">
+                        <div class="cost-item">
+                            <span class="cost-label">Total Post Value:</span>
+                            <span class="cost-value" id="totalPostValue">AED 20,399.85</span>
+                        </div>
+                        <div class="cost-item">
+                            <span class="cost-label">Weight per Post:</span>
+                            <span class="cost-value" id="displayWeightPerPost">52.21 kg</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <h2 class="section-title">Gate Details</h2>
+                
+                <div class="form-group">
+                    <label for="gateCost">Gate Cost (AED):</label>
+                    <input type="number" id="gateCost" value="0" step="0.01" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="gateQty">Gate Quantity:</label>
+                    <input type="number" id="gateQty" value="0" min="1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="gateWeight">Gate Weight (kg):</label>
+                    <input type="number" id="gateWeight" value="0" step="0.01" min="0">
+                </div>
+                
+                <button id="calculateBtn" class="btn">Calculate Total Cost</button>
+                <button id="printBtn" class="btn btn-print no-print">Print Report</button>
+            </section>
+            
+            <section class="results-section">
+                <h2 class="section-title">Cost Breakdown</h2>
+                
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="result-label">Total Distance Cost</div>
+                        <div class="result-value" id="totalDistanceCost">AED 34,000.00</div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <div class="result-label">Total Gates Value</div>
+                        <div class="result-value" id="totalGatesValue">AED 4,100.00</div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <div class="result-label">Material Cost</div>
+                        <div class="result-value" id="materialCost">AED 23,800.00</div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <div class="result-label">Installation Cost</div>
+                        <div class="result-value" id="installationCost">AED 10,200.00</div>
+                    </div>
+                </div>
+                
+                <div class="cost-breakdown">
+                    <h3>Material Cost Breakdown</h3>
+                    <div class="cost-item">
+                        <span class="cost-label">Cost per KM (40%):</span>
+                        <span class="cost-value" id="costPerKm">AED 13,600.00</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">Cost per Linear Meter:</span>
+                        <span class="cost-value" id="costPerLM">AED 160.00</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">Cost per Post (60%):</span>
+                        <span class="cost-value" id="costPerPost">AED 14,280.00</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">Cost per Post (Individual):</span>
+                        <span class="cost-value" id="individualPostCost">AED 317.33</span>
+                    </div>
+                </div>
+                
+                <div class="post-details">
+                    <h3>Weight Summary</h3>
+                    <div class="cost-item">
+                        <span class="cost-label">Total Post Weight:</span>
+                        <span class="cost-value" id="displayTotalPostWeight">2,349.60 kg</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">Total Gate Weight:</span>
+                        <span class="cost-value" id="displayTotalGateWeight">920.00 kg</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">Total Weight (Posts + Gates):</span>
+                        <span class="cost-value" id="displayTotalWeight">3,269.60 kg</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">Weight per Linear Meter:</span>
+                        <span class="cost-value" id="displayWeightPerLM">38.47 kg</span>
+                    </div>
+                </div>
+                
+                <div class="breakdown-section">
+                    <h3 class="section-title">Detailed Breakdown</h3>
+                    
+                    <table class="breakdown-table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Amount (AED)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Distance Cost (KM × Rate)</td>
+                                <td id="distanceCostDetail">AED 34,000.00</td>
+                            </tr>
+                            <tr>
+                                <td>Total Gates Value</td>
+                                <td id="gatesValueDetail">AED 4,100.00</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Material Allocation (<span id="materialPercentage">70%</span>)</td>
+                                <td id="materialAllocation">AED 23,800.00</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;&nbsp;• For Fence (40%)</td>
+                                <td id="fenceCost">AED 13,600.00</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;Cost per Linear Meter</td>
+                                <td id="costPerLMDetail">AED 160.00</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;&nbsp;• For Posts (60%)</td>
+                                <td id="postCost">AED 14,280.00</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;Individual Post Cost</td>
+                                <td id="individualPostCostDetail">AED 317.33</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td>Installation Cost (<span id="installationPercentage">30%</span>)</td>
+                                <td id="installationCostDetail">AED 10,200.00</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;&nbsp;• Gate Installation (30%)</td>
+                                <td id="gateInstallationCost">AED 1,230.00</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td>GRAND TOTAL</td>
+                                <td id="grandTotal">AED 38,100.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="note">Note: Installation costs are only applied when "Include Installation" is selected.</p>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Print Section (Hidden by default) -->
+        <section class="print-section" id="printSection">
+            <div class="print-header">
+                <h1>Fence Installation Cost Report</h1>
+                <p>Generated on: <span id="printDate"></span></p>
+            </div>
+            
+            <div class="print-summary">
+                <div class="print-summary-item">
+                    <h3>Project Details</h3>
+                    <p><strong>Distance:</strong> <span id="printDistance">85</span> KM</p>
+                    <p><strong>Rate per KM:</strong> AED <span id="printRate">400.00</span></p>
+                    <p><strong>Service Type:</strong> <span id="printServiceType">Standard Installation</span></p>
+                    <p><strong>Include Installation:</strong> <span id="printInstallation">Yes</span></p>
+                </div>
+                
+                <div class="print-summary-item">
+                    <h3>Cost Summary</h3>
+                    <p><strong>Total Distance Cost:</strong> <span id="printTotalDistanceCost">AED 34,000.00</span></p>
+                    <p><strong>Total Gates Value:</strong> <span id="printTotalGatesValue">AED 4,100.00</span></p>
+                    <p><strong>Material Cost:</strong> <span id="printMaterialCost">AED 23,800.00</span></p>
+                    <p><strong>Installation Cost:</strong> <span id="printInstallationCost">AED 10,200.00</span></p>
+                    <p><strong>Grand Total:</strong> <span id="printGrandTotal">AED 38,100.00</span></p>
+                </div>
+            </div>
+            
+            <div class="print-details">
+                <h3>Material Cost Breakdown</h3>
+                <table class="print-table">
+                    <tr>
+                        <td>Cost per KM (40%)</td>
+                        <td id="printCostPerKm">AED 13,600.00</td>
+                    </tr>
+                    <tr>
+                        <td>Cost per Linear Meter</td>
+                        <td id="printCostPerLM">AED 160.00</td>
+                    </tr>
+                    <tr>
+                        <td>Cost per Post (60%)</td>
+                        <td id="printCostPerPost">AED 14,280.00</td>
+                    </tr>
+                    <tr>
+                        <td>Cost per Post (Individual)</td>
+                        <td id="printIndividualPostCost">AED 317.33</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="print-details">
+                <h3>Weight Summary</h3>
+                <table class="print-table">
+                    <tr>
+                        <td>Total Post Weight</td>
+                        <td id="printTotalPostWeight">2,349.60 kg</td>
+                    </tr>
+                    <tr>
+                        <td>Total Gate Weight</td>
+                        <td id="printTotalGateWeight">920.00 kg</td>
+                    </tr>
+                    <tr>
+                        <td>Total Weight (Posts + Gates)</td>
+                        <td id="printTotalWeight">3,269.60 kg</td>
+                    </tr>
+                    <tr>
+                        <td>Weight per Linear Meter</td>
+                        <td id="printWeightPerLM">38.47 kg</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="print-footer">
+                <p>Fence Installation Cost Calculator &copy; 2025 | Currency: AED (United Arab Emirates Dirham)</p>
+                <p>Made by Vijay Goral</p>
+            </div>
+        </section>
+        
+        <div class="footer no-print">
+            <p>Cost Calculator 2025 | Currency: AED</p>
+            <p>Made by Vijay Goral</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calculateBtn = document.getElementById('calculateBtn');
+            const printBtn = document.getElementById('printBtn');
+            const autoWeightRadio = document.getElementById('autoWeight');
+            const manualWeightRadio = document.getElementById('manualWeight');
+            const individualWeightGroup = document.getElementById('individualWeightGroup');
+            const totalWeightGroup = document.getElementById('totalWeightGroup');
+            
+            // Initial calculation
+            calculateCosts();
+            
+            // Add event listeners to weight type radio buttons
+            autoWeightRadio.addEventListener('change', toggleWeightInput);
+            manualWeightRadio.addEventListener('change', toggleWeightInput);
+            
+            // Add event listener to calculate button
+            calculateBtn.addEventListener('click', calculateCosts);
+            
+            // Add event listener to print button
+            printBtn.addEventListener('click', printReport);
+            
+            // Add event listeners to input fields for real-time calculation
+            const inputFields = [
+                'distance', 'rate', 'postQty', 'postWeight', 'postValue', 
+                'gateCost', 'gateQty', 'gateWeight', 'totalPostWeightInput'
+            ];
+            inputFields.forEach(field => {
+                document.getElementById(field).addEventListener('input', calculateCosts);
+            });
+            
+            // Add event listener to installation checkbox
+            document.getElementById('installation').addEventListener('change', calculateCosts);
+            
+            function toggleWeightInput() {
+                if (autoWeightRadio.checked) {
+                    individualWeightGroup.style.display = 'flex';
+                    totalWeightGroup.style.display = 'none';
+                } else {
+                    individualWeightGroup.style.display = 'none';
+                    totalWeightGroup.style.display = 'flex';
+                }
+                calculateCosts();
+            }
+            
+            function calculateCosts() {
+                // Get input values
+                const distance = parseFloat(document.getElementById('distance').value) || 0;
+                const rate = parseFloat(document.getElementById('rate').value) || 0;
+                const postQty = parseInt(document.getElementById('postQty').value) || 0;
+                const postWeight = parseFloat(document.getElementById('postWeight').value) || 0;
+                const postValue = parseFloat(document.getElementById('postValue').value) || 0;
+                const totalPostWeightInput = parseFloat(document.getElementById('totalPostWeightInput').value) || 0;
+                const gateCost = parseFloat(document.getElementById('gateCost').value) || 0;
+                const gateQty = parseInt(document.getElementById('gateQty').value) || 0;
+                const gateWeight = parseFloat(document.getElementById('gateWeight').value) || 0;
+                const includeInstallation = document.getElementById('installation').checked;
+                const serviceType = document.getElementById('serviceType').value;
+                
+                // Calculate post values based on weight input method
+                let totalPostWeight, weightPerPost;
+                
+                if (autoWeightRadio.checked) {
+                    // Calculate weight automatically
+                    totalPostWeight = postQty * postWeight;
+                    weightPerPost = postWeight;
+                } else {
+                    // Use manual total weight
+                    totalPostWeight = totalPostWeightInput;
+                    weightPerPost = postQty > 0 ? totalPostWeight / postQty : 0;
+                }
+                
+                const totalPostValue = postQty * postValue;
+                
+                // Update calculated values in UI
+                document.getElementById('calculatedWeight').value = totalPostWeight.toFixed(2);
+                document.getElementById('totalPostValue').textContent = formatCurrency(totalPostValue);
+                document.getElementById('displayWeightPerPost').textContent = formatWeight(weightPerPost);
+                
+                // Calculate gate values
+                const totalGatesValue = gateCost * gateQty;
+                const totalGateWeight = gateWeight * gateQty;
+                
+                // Calculate costs
+                const totalDistanceCost = distance * rate;
+                
+                // Material and installation allocation
+                const materialPercentage = includeInstallation ? 0.7 : 1.0;
+                const installationPercentage = includeInstallation ? 0.3 : 0.0;
+                
+                const materialAllocation = totalDistanceCost * materialPercentage;
+                const installationAllocation = totalDistanceCost * installationPercentage;
+                
+                // Material breakdown
+                const fenceCost = materialAllocation * 0.4; // 40% for fence (cost per KM)
+                const postCost = materialAllocation * 0.6; // 60% for posts
+                const individualPostCost = postQty > 0 ? postCost / postQty : 0;
+                
+                // CORRECTED: Calculate cost per linear meter - using distance in KM
+                const costPerLM = distance > 0 ? fenceCost / distance : 0;
+                
+                // Gate installation cost
+                const gateInstallationCost = includeInstallation ? totalGatesValue * 0.3 : 0;
+                
+                // Grand total
+                const grandTotal = totalDistanceCost + totalGatesValue + gateInstallationCost;
+                
+                // Weight calculations
+                const distanceInMeters = distance * 1000;
+                const totalWeight = totalPostWeight + totalGateWeight;
+                const weightPerLM = distanceInMeters > 0 ? totalWeight / distanceInMeters : 0;
+                
+                // Update UI with calculated values
+                document.getElementById('totalDistanceCost').textContent = formatCurrency(totalDistanceCost);
+                document.getElementById('totalGatesValue').textContent = formatCurrency(totalGatesValue);
+                document.getElementById('materialCost').textContent = formatCurrency(materialAllocation);
+                document.getElementById('installationCost').textContent = formatCurrency(installationAllocation + gateInstallationCost);
+                
+                // Update detailed breakdown
+                document.getElementById('distanceCostDetail').textContent = formatCurrency(totalDistanceCost);
+                document.getElementById('gatesValueDetail').textContent = formatCurrency(totalGatesValue);
+                document.getElementById('materialAllocation').textContent = formatCurrency(materialAllocation);
+                document.getElementById('fenceCost').textContent = formatCurrency(fenceCost);
+                document.getElementById('postCost').textContent = formatCurrency(postCost);
+                document.getElementById('individualPostCostDetail').textContent = formatCurrency(individualPostCost);
+                document.getElementById('installationCostDetail').textContent = formatCurrency(installationAllocation);
+                document.getElementById('gateInstallationCost').textContent = formatCurrency(gateInstallationCost);
+                document.getElementById('grandTotal').textContent = formatCurrency(grandTotal);
+                
+                // Update percentages in the breakdown table
+                document.getElementById('materialPercentage').textContent = (materialPercentage * 100) + '%';
+                document.getElementById('installationPercentage').textContent = (installationPercentage * 100) + '%';
+                
+                // Update cost breakdown section
+                document.getElementById('costPerKm').textContent = formatCurrency(fenceCost);
+                document.getElementById('costPerPost').textContent = formatCurrency(postCost);
+                document.getElementById('individualPostCost').textContent = formatCurrency(individualPostCost);
+                
+                // Update cost per linear meter
+                document.getElementById('costPerLM').textContent = formatCurrency(costPerLM);
+                document.getElementById('costPerLMDetail').textContent = formatCurrency(costPerLM);
+                
+                // Update weight summary
+                document.getElementById('displayTotalPostWeight').textContent = formatWeight(totalPostWeight);
+                document.getElementById('displayTotalGateWeight').textContent = formatWeight(totalGateWeight);
+                document.getElementById('displayTotalWeight').textContent = formatWeight(totalWeight);
+                document.getElementById('displayWeightPerLM').textContent = formatWeight(weightPerLM);
+                
+                // Update print section with current values
+                updatePrintSection(
+                    distance, rate, serviceType, includeInstallation,
+                    totalDistanceCost, totalGatesValue, materialAllocation, 
+                    installationAllocation + gateInstallationCost, grandTotal,
+                    fenceCost, costPerLM, postCost, individualPostCost,
+                    totalPostWeight, totalGateWeight, totalWeight, weightPerLM
+                );
+            }
+            
+            function updatePrintSection(
+                distance, rate, serviceType, includeInstallation,
+                totalDistanceCost, totalGatesValue, materialCost, 
+                installationCost, grandTotal,
+                costPerKm, costPerLM, costPerPost, individualPostCost,
+                totalPostWeight, totalGateWeight, totalWeight, weightPerLM
+            ) {
+                // Set current date
+                const now = new Date();
+                document.getElementById('printDate').textContent = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+                
+                // Update project details
+                document.getElementById('printDistance').textContent = distance;
+                document.getElementById('printRate').textContent = rate.toFixed(2);
+                document.getElementById('printServiceType').textContent = 
+                    serviceType === 'standard' ? 'Standard Installation' : 'Premium Installation';
+                document.getElementById('printInstallation').textContent = includeInstallation ? 'Yes' : 'No';
+                
+                // Update cost summary
+                document.getElementById('printTotalDistanceCost').textContent = formatCurrency(totalDistanceCost);
+                document.getElementById('printTotalGatesValue').textContent = formatCurrency(totalGatesValue);
+                document.getElementById('printMaterialCost').textContent = formatCurrency(materialCost);
+                document.getElementById('printInstallationCost').textContent = formatCurrency(installationCost);
+                document.getElementById('printGrandTotal').textContent = formatCurrency(grandTotal);
+                
+                // Update material cost breakdown
+                document.getElementById('printCostPerKm').textContent = formatCurrency(costPerKm);
+                document.getElementById('printCostPerLM').textContent = formatCurrency(costPerLM);
+                document.getElementById('printCostPerPost').textContent = formatCurrency(costPerPost);
+                document.getElementById('printIndividualPostCost').textContent = formatCurrency(individualPostCost);
+                
+                // Update weight summary
+                document.getElementById('printTotalPostWeight').textContent = formatWeight(totalPostWeight);
+                document.getElementById('printTotalGateWeight').textContent = formatWeight(totalGateWeight);
+                document.getElementById('printTotalWeight').textContent = formatWeight(totalWeight);
+                document.getElementById('printWeightPerLM').textContent = formatWeight(weightPerLM);
+            }
+            
+            function printReport() {
+                // Show the print section
+                document.getElementById('printSection').style.display = 'block';
+                
+                // Wait a moment for the display change to take effect, then print
+                setTimeout(() => {
+                    window.print();
+                    
+                    // Hide the print section again after printing
+                    setTimeout(() => {
+                        document.getElementById('printSection').style.display = 'none';
+                    }, 500);
+                }, 500);
+            }
+            
+            function formatCurrency(amount) {
+                return 'AED ' + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            }
+            
+            function formatWeight(weight) {
+                return weight.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + ' kg';
+            }
+        });
+    </script>
+</body>
+</html>
