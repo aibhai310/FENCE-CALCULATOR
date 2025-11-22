@@ -25,6 +25,90 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
+        /* Password Protection Styles */
+        #password-protection {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--uae-green) 0%, var(--uae-red) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            color: white;
+        }
+        
+        .password-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            text-align: center;
+            color: var(--dark-color);
+            max-width: 450px;
+            width: 90%;
+        }
+        
+        .password-box h2 {
+            margin-bottom: 15px;
+            color: var(--uae-green);
+            font-size: 28px;
+        }
+        
+        .password-box p {
+            margin-bottom: 25px;
+            font-size: 16px;
+            opacity: 0.8;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 15px;
+            margin: 20px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+        
+        .password-input:focus {
+            border-color: var(--uae-green);
+            outline: none;
+        }
+        
+        .password-btn {
+            background: var(--uae-green);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        .password-btn:hover {
+            background: #006b41;
+        }
+        
+        .error-message {
+            color: var(--uae-red);
+            margin-top: 15px;
+            display: none;
+            font-weight: 600;
+        }
+        
+        /* Hide main content initially */
+        .container {
+            display: none;
+        }
+        
+        /* Your existing styles */
         body {
             background-color: #f5f7fa;
             color: var(--dark-color);
@@ -321,192 +405,26 @@
             width: auto;
         }
         
-        /* Print Styles for A4 Paper */
-        @media print {
-            body * {
-                visibility: hidden;
-                margin: 0;
-                padding: 0;
-            }
-            
-            .print-section, .print-section * {
-                visibility: visible;
-            }
-            
-            .print-section {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                padding: 15mm;
-                background: white;
-                font-size: 12pt;
-                line-height: 1.4;
-            }
-            
-            .no-print {
-                display: none !important;
-            }
-            
-            .btn {
-                display: none;
-            }
-            
-            /* A4 page size */
-            @page {
-                size: A4;
-                margin: 15mm;
-            }
-            
-            .print-header {
-                text-align: center;
-                margin-bottom: 20px;
-                padding-bottom: 10px;
-                border-bottom: 2px solid var(--uae-green);
-            }
-            
-            .print-header h1 {
-                font-size: 20pt;
-                margin-bottom: 5px;
-            }
-            
-            .print-header p {
-                font-size: 11pt;
-                color: #666;
-            }
-            
-            .print-summary {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-                margin-bottom: 20px;
-            }
-            
-            .print-summary-item {
-                background-color: #f9f9f9;
-                padding: 10px;
-                border-radius: 4px;
-                border-left: 4px solid var(--uae-green);
-                font-size: 10pt;
-            }
-            
-            .print-summary-item h3 {
-                font-size: 12pt;
-                margin-bottom: 8px;
-                border-bottom: 1px solid #ddd;
-                padding-bottom: 5px;
-            }
-            
-            .print-details {
-                margin-bottom: 15px;
-            }
-            
-            .print-details h3 {
-                font-size: 13pt;
-                margin-bottom: 8px;
-                border-bottom: 1px solid #ddd;
-                padding-bottom: 5px;
-            }
-            
-            .print-table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-top: 8px;
-                font-size: 10pt;
-            }
-            
-            .print-table th, .print-table td {
-                padding: 8px 10px;
-                text-align: left;
-                border-bottom: 1px solid #ddd;
-            }
-            
-            .print-table th {
-                background-color: #f0f0f0;
-                font-weight: 600;
-            }
-            
-            .print-footer {
-                text-align: center;
-                margin-top: 20px;
-                padding-top: 10px;
-                border-top: 1px solid #ddd;
-                font-size: 9pt;
-                color: #666;
-                position: absolute;
-                bottom: 15mm;
-                left: 15mm;
-                right: 15mm;
-            }
-            
-            /* Compact layout adjustments */
-            .print-summary-item p {
-                margin-bottom: 4px;
-            }
-            
-            .print-table tr:last-child td {
-                border-bottom: none;
-            }
+        .no-print {
+            display: block;
         }
         
-        .print-section {
-            display: none;
-        }
-        
-        .print-header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--uae-green);
-        }
-        
-        .print-summary {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        
-        .print-summary-item {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 6px;
-            border-left: 4px solid var(--uae-green);
-        }
-        
-        .print-details {
-            margin-bottom: 30px;
-        }
-        
-        .print-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-        
-        .print-table th, .print-table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        .print-table th {
-            background-color: var(--light-color);
-            font-weight: 600;
-        }
-        
-        .print-footer {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 15px;
-            border-top: 1px solid #ddd;
-            font-size: 0.9rem;
-            color: #666;
-        }
+        /* Print styles would go here */
     </style>
 </head>
 <body>
+    <!-- Password Protection -->
+    <div id="password-protection">
+        <div class="password-box">
+            <h2>🔒 Protected Calculator</h2>
+            <p>This calculator is confidential. Please enter the password to continue.</p>
+            <input type="password" id="password-input" class="password-input" placeholder="Enter password">
+            <button onclick="checkPassword()" class="password-btn">Access Calculator</button>
+            <div id="error-message" class="error-message">Incorrect password. Please try again.</div>
+        </div>
+    </div>
+
+    <!-- Main Calculator Content -->
     <div class="container">
         <header>
             <div class="header-content">
@@ -595,11 +513,11 @@
                     <div class="post-summary">
                         <div class="cost-item">
                             <span class="cost-label">Total Post Value:</span>
-                            <span class="cost-value" id="totalPostValue">AED 20,399.85</span>
+                            <span class="cost-value" id="totalPostValue">AED 0.00</span>
                         </div>
                         <div class="cost-item">
                             <span class="cost-label">Weight per Post:</span>
-                            <span class="cost-value" id="displayWeightPerPost">52.21 kg</span>
+                            <span class="cost-value" id="displayWeightPerPost">0.00 kg</span>
                         </div>
                     </div>
                 </div>
@@ -631,22 +549,22 @@
                 <div class="results-grid">
                     <div class="result-card">
                         <div class="result-label">Total Distance Cost</div>
-                        <div class="result-value" id="totalDistanceCost">AED 34,000.00</div>
+                        <div class="result-value" id="totalDistanceCost">AED 0.00</div>
                     </div>
                     
                     <div class="result-card">
                         <div class="result-label">Total Gates Value</div>
-                        <div class="result-value" id="totalGatesValue">AED 4,100.00</div>
+                        <div class="result-value" id="totalGatesValue">AED 0.00</div>
                     </div>
                     
                     <div class="result-card">
                         <div class="result-label">Material Cost</div>
-                        <div class="result-value" id="materialCost">AED 23,800.00</div>
+                        <div class="result-value" id="materialCost">AED 0.00</div>
                     </div>
                     
                     <div class="result-card">
                         <div class="result-label">Installation Cost</div>
-                        <div class="result-value" id="installationCost">AED 10,200.00</div>
+                        <div class="result-value" id="installationCost">AED 0.00</div>
                     </div>
                 </div>
                 
@@ -654,19 +572,19 @@
                     <h3>Material Cost Breakdown</h3>
                     <div class="cost-item">
                         <span class="cost-label">Cost per KM (40%):</span>
-                        <span class="cost-value" id="costPerKm">AED 13,600.00</span>
+                        <span class="cost-value" id="costPerKm">AED 0.00</span>
                     </div>
                     <div class="cost-item">
                         <span class="cost-label">Cost per Linear Meter:</span>
-                        <span class="cost-value" id="costPerLM">AED 160.00</span>
+                        <span class="cost-value" id="costPerLM">AED 0.00</span>
                     </div>
                     <div class="cost-item">
                         <span class="cost-label">Cost per Post (60%):</span>
-                        <span class="cost-value" id="costPerPost">AED 14,280.00</span>
+                        <span class="cost-value" id="costPerPost">AED 0.00</span>
                     </div>
                     <div class="cost-item">
                         <span class="cost-label">Cost per Post (Individual):</span>
-                        <span class="cost-value" id="individualPostCost">AED 317.33</span>
+                        <span class="cost-value" id="individualPostCost">AED 0.00</span>
                     </div>
                 </div>
                 
@@ -674,19 +592,19 @@
                     <h3>Weight Summary</h3>
                     <div class="cost-item">
                         <span class="cost-label">Total Post Weight:</span>
-                        <span class="cost-value" id="displayTotalPostWeight">2,349.60 kg</span>
+                        <span class="cost-value" id="displayTotalPostWeight">0.00 kg</span>
                     </div>
                     <div class="cost-item">
                         <span class="cost-label">Total Gate Weight:</span>
-                        <span class="cost-value" id="displayTotalGateWeight">920.00 kg</span>
+                        <span class="cost-value" id="displayTotalGateWeight">0.00 kg</span>
                     </div>
                     <div class="cost-item">
                         <span class="cost-label">Total Weight (Posts + Gates):</span>
-                        <span class="cost-value" id="displayTotalWeight">3,269.60 kg</span>
+                        <span class="cost-value" id="displayTotalWeight">0.00 kg</span>
                     </div>
                     <div class="cost-item">
                         <span class="cost-label">Weight per Linear Meter:</span>
-                        <span class="cost-value" id="displayWeightPerLM">38.47 kg</span>
+                        <span class="cost-value" id="displayWeightPerLM">0.00 kg</span>
                     </div>
                 </div>
                 
@@ -703,43 +621,43 @@
                         <tbody>
                             <tr>
                                 <td>Distance Cost (KM × Rate)</td>
-                                <td id="distanceCostDetail">AED 34,000.00</td>
+                                <td id="distanceCostDetail">AED 0.00</td>
                             </tr>
                             <tr>
                                 <td>Total Gates Value</td>
-                                <td id="gatesValueDetail">AED 4,100.00</td>
+                                <td id="gatesValueDetail">AED 0.00</td>
                             </tr>
                             <tr class="highlight">
                                 <td>Material Allocation (<span id="materialPercentage">70%</span>)</td>
-                                <td id="materialAllocation">AED 23,800.00</td>
+                                <td id="materialAllocation">AED 0.00</td>
                             </tr>
                             <tr>
                                 <td>&nbsp;&nbsp;• For Fence (40%)</td>
-                                <td id="fenceCost">AED 13,600.00</td>
+                                <td id="fenceCost">AED 0.00</td>
                             </tr>
                             <tr>
                                 <td>&nbsp;&nbsp;&nbsp;&nbsp;Cost per Linear Meter</td>
-                                <td id="costPerLMDetail">AED 160.00</td>
+                                <td id="costPerLMDetail">AED 0.00</td>
                             </tr>
                             <tr>
                                 <td>&nbsp;&nbsp;• For Posts (60%)</td>
-                                <td id="postCost">AED 14,280.00</td>
+                                <td id="postCost">AED 0.00</td>
                             </tr>
                             <tr>
                                 <td>&nbsp;&nbsp;&nbsp;&nbsp;Individual Post Cost</td>
-                                <td id="individualPostCostDetail">AED 317.33</td>
+                                <td id="individualPostCostDetail">AED 0.00</td>
                             </tr>
                             <tr class="highlight">
                                 <td>Installation Cost (<span id="installationPercentage">30%</span>)</td>
-                                <td id="installationCostDetail">AED 10,200.00</td>
+                                <td id="installationCostDetail">AED 0.00</td>
                             </tr>
                             <tr>
                                 <td>&nbsp;&nbsp;• Gate Installation (30%)</td>
-                                <td id="gateInstallationCost">AED 1,230.00</td>
+                                <td id="gateInstallationCost">AED 0.00</td>
                             </tr>
                             <tr class="total-row">
                                 <td>GRAND TOTAL</td>
-                                <td id="grandTotal">AED 38,100.00</td>
+                                <td id="grandTotal">AED 0.00</td>
                             </tr>
                         </tbody>
                     </table>
@@ -748,87 +666,6 @@
             </section>
         </div>
         
-        <!-- Print Section (Hidden by default) -->
-        <section class="print-section" id="printSection">
-            <div class="print-header">
-                <h1>Fence Installation Cost Report</h1>
-                <p>Generated on: <span id="printDate"></span></p>
-            </div>
-            
-            <div class="print-summary">
-                <div class="print-summary-item">
-                    <h3>Project Details</h3>
-                    <p><strong>Distance:</strong> <span id="printDistance">85</span> KM</p>
-                    <p><strong>Rate per KM:</strong> AED <span id="printRate">400.00</span></p>
-                    <p><strong>Service Type:</strong> <span id="printServiceType">Standard Installation</span></p>
-                    <p><strong>Include Installation:</strong> <span id="printInstallation">Yes</span></p>
-                </div>
-                
-                <div class="print-summary-item">
-                    <h3>Cost Summary</h3>
-                    <p><strong>Total Distance Cost:</strong> <span id="printTotalDistanceCost">AED 34,000.00</span></p>
-                    <p><strong>Total Gates Value:</strong> <span id="printTotalGatesValue">AED 4,100.00</span></p>
-                    <p><strong>Material Cost:</strong> <span id="printMaterialCost">AED 23,800.00</span></p>
-                    <p><strong>Installation Cost:</strong> <span id="printInstallationCost">AED 10,200.00</span></p>
-                    <p><strong>Grand Total:</strong> <span id="printGrandTotal">AED 38,100.00</span></p>
-                </div>
-            </div>
-            
-            <div class="print-details">
-                <h3>Material Cost Breakdown</h3>
-                <table class="print-table">
-                    <tr>
-                        <td>Cost per KM (40%)</td>
-                        <td id="printCostPerKm">AED 13,600.00</td>
-                    </tr>
-                    <tr>
-                        <td>Cost per Linear Meter</td>
-                        <td id="printCostPerLM">AED 160.00</td>
-                    </tr>
-                    <tr>
-                        <td>Cost per Post (60%)</td>
-                        <td id="printCostPerPost">AED 14,280.00</td>
-                    </tr>
-                    <tr>
-                        <td>Cost per Post (Individual)</td>
-                        <td id="printIndividualPostCost">AED 317.33</td>
-                    </tr>
-                </table>
-            </div>
-            
-            <div class="print-details">
-                <h3>Weight Summary</h3>
-                <table class="print-table">
-                    <tr>
-                        <td>Total Post Weight</td>
-                        <td id="printTotalPostWeight">2,349.60 kg</td>
-                    </tr>
-                    <tr>
-                        <td>Total Gate Weight</td>
-                        <td id="printTotalGateWeight">920.00 kg</td>
-                    </tr>
-                    <tr>
-                        <td>Total Weight (Posts + Gates)</td>
-                        <td id="printTotalWeight">3,269.60 kg</td>
-                    </tr>
-                    <tr>
-                        <td>Weight per Linear Meter</td>
-                        <td id="printWeightPerLM">38.47 kg</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="password-box">
-    <img src="your-logo.png" alt="Company Logo" style="height: 60px; margin-bottom: 20px;">
-    <h2>🔒 Company Calculator</h2>
-    <!-- ... rest ... -->
-</div>
-            
-            <div class="print-footer">
-                <p>Fence Installation Cost Calculator &copy; 2025 | Currency: AED (United Arab Emirates Dirham)</p>
-                <p>Made by Vijay Goral</p>
-            </div>
-        </section>
-        
         <div class="footer no-print">
             <p>Cost Calculator 2025 | Currency: AED</p>
             <p>Made by Vijay Goral</p>
@@ -836,6 +673,42 @@
     </div>
 
     <script>
+        // PASSWORD CONFIGURATION - CHANGE THIS!
+        const CORRECT_PASSWORD = "fence2025"; // ⚠️ CHANGE THIS PASSWORD!
+        
+        function checkPassword() {
+            const input = document.getElementById('password-input').value;
+            const error = document.getElementById('error-message');
+            
+            if (input === CORRECT_PASSWORD) {
+                // Correct password - show calculator
+                document.getElementById('password-protection').style.display = 'none';
+                document.querySelector('.container').style.display = 'block';
+                
+                // Store in session so password isn't needed again
+                sessionStorage.setItem('authenticated', 'true');
+            } else {
+                // Wrong password - show error
+                error.style.display = 'block';
+                document.getElementById('password-input').value = '';
+                document.getElementById('password-input').focus();
+            }
+        }
+        
+        // Check if already authenticated
+        if (sessionStorage.getItem('authenticated') === 'true') {
+            document.getElementById('password-protection').style.display = 'none';
+            document.querySelector('.container').style.display = 'block';
+        }
+        
+        // Allow pressing Enter to submit password
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // Your existing calculator JavaScript
         document.addEventListener('DOMContentLoaded', function() {
             const calculateBtn = document.getElementById('calculateBtn');
             const printBtn = document.getElementById('printBtn');
@@ -892,7 +765,6 @@
                 const gateQty = parseInt(document.getElementById('gateQty').value) || 0;
                 const gateWeight = parseFloat(document.getElementById('gateWeight').value) || 0;
                 const includeInstallation = document.getElementById('installation').checked;
-                const serviceType = document.getElementById('serviceType').value;
                 
                 // Calculate post values based on weight input method
                 let totalPostWeight, weightPerPost;
@@ -933,7 +805,7 @@
                 const postCost = materialAllocation * 0.6; // 60% for posts
                 const individualPostCost = postQty > 0 ? postCost / postQty : 0;
                 
-                // CORRECTED: Calculate cost per linear meter - using distance in KM
+                // Calculate cost per linear meter
                 const costPerLM = distance > 0 ? fenceCost / distance : 0;
                 
                 // Gate installation cost
@@ -982,68 +854,10 @@
                 document.getElementById('displayTotalGateWeight').textContent = formatWeight(totalGateWeight);
                 document.getElementById('displayTotalWeight').textContent = formatWeight(totalWeight);
                 document.getElementById('displayWeightPerLM').textContent = formatWeight(weightPerLM);
-                
-                // Update print section with current values
-                updatePrintSection(
-                    distance, rate, serviceType, includeInstallation,
-                    totalDistanceCost, totalGatesValue, materialAllocation, 
-                    installationAllocation + gateInstallationCost, grandTotal,
-                    fenceCost, costPerLM, postCost, individualPostCost,
-                    totalPostWeight, totalGateWeight, totalWeight, weightPerLM
-                );
-            }
-            
-            function updatePrintSection(
-                distance, rate, serviceType, includeInstallation,
-                totalDistanceCost, totalGatesValue, materialCost, 
-                installationCost, grandTotal,
-                costPerKm, costPerLM, costPerPost, individualPostCost,
-                totalPostWeight, totalGateWeight, totalWeight, weightPerLM
-            ) {
-                // Set current date
-                const now = new Date();
-                document.getElementById('printDate').textContent = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
-                
-                // Update project details
-                document.getElementById('printDistance').textContent = distance;
-                document.getElementById('printRate').textContent = rate.toFixed(2);
-                document.getElementById('printServiceType').textContent = 
-                    serviceType === 'standard' ? 'Standard Installation' : 'Premium Installation';
-                document.getElementById('printInstallation').textContent = includeInstallation ? 'Yes' : 'No';
-                
-                // Update cost summary
-                document.getElementById('printTotalDistanceCost').textContent = formatCurrency(totalDistanceCost);
-                document.getElementById('printTotalGatesValue').textContent = formatCurrency(totalGatesValue);
-                document.getElementById('printMaterialCost').textContent = formatCurrency(materialCost);
-                document.getElementById('printInstallationCost').textContent = formatCurrency(installationCost);
-                document.getElementById('printGrandTotal').textContent = formatCurrency(grandTotal);
-                
-                // Update material cost breakdown
-                document.getElementById('printCostPerKm').textContent = formatCurrency(costPerKm);
-                document.getElementById('printCostPerLM').textContent = formatCurrency(costPerLM);
-                document.getElementById('printCostPerPost').textContent = formatCurrency(costPerPost);
-                document.getElementById('printIndividualPostCost').textContent = formatCurrency(individualPostCost);
-                
-                // Update weight summary
-                document.getElementById('printTotalPostWeight').textContent = formatWeight(totalPostWeight);
-                document.getElementById('printTotalGateWeight').textContent = formatWeight(totalGateWeight);
-                document.getElementById('printTotalWeight').textContent = formatWeight(totalWeight);
-                document.getElementById('printWeightPerLM').textContent = formatWeight(weightPerLM);
             }
             
             function printReport() {
-                // Show the print section
-                document.getElementById('printSection').style.display = 'block';
-                
-                // Wait a moment for the display change to take effect, then print
-                setTimeout(() => {
-                    window.print();
-                    
-                    // Hide the print section again after printing
-                    setTimeout(() => {
-                        document.getElementById('printSection').style.display = 'none';
-                    }, 500);
-                }, 500);
+                window.print();
             }
             
             function formatCurrency(amount) {
@@ -1056,5 +870,4 @@
         });
     </script>
 </body>
-
 </html>
