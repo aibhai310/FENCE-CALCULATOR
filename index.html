@@ -409,6 +409,48 @@
             display: block;
         }
         
+        /* Collapsible sections */
+        .collapsible {
+            margin-top: 15px;
+        }
+        
+        .collapsible-header {
+            background-color: var(--light-color);
+            padding: 12px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .collapsible-header:hover {
+            background-color: #e0e6ea;
+        }
+        
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: #f9f9f9;
+            border-radius: 0 0 6px 6px;
+        }
+        
+        .collapsible-content.expanded {
+            max-height: 1000px;
+            padding: 15px;
+        }
+        
+        .collapsible-icon {
+            transition: transform 0.3s;
+        }
+        
+        .collapsible-icon.expanded {
+            transform: rotate(180deg);
+        }
+        
         /* Print styles would go here */
     </style>
 </head>
@@ -470,29 +512,13 @@
                 <div class="post-details">
                     <div class="post-header">Post Specifications</div>
                     
-                    <div class="weight-toggle">
-                        <div class="toggle-option">
-                            <input type="radio" id="autoWeight" name="weightType" value="auto" checked>
-                            <label for="autoWeight">Calculate Weight Automatically</label>
-                        </div>
-                        <div class="toggle-option">
-                            <input type="radio" id="manualWeight" name="weightType" value="manual">
-                            <label for="manualWeight">Enter Total Weight Manually</label>
-                        </div>
-                    </div>
-                    
                     <div class="post-row">
                         <div class="post-input-group">
                             <label for="postQty">Number of Posts:</label>
                             <input type="number" id="postQty" value="0" min="1">
                         </div>
                         
-                        <div class="post-input-group" id="individualWeightGroup">
-                            <label for="postWeight">Weight per Post (kg):</label>
-                            <input type="number" id="postWeight" value="0" step="0.01" min="0">
-                        </div>
-                        
-                        <div class="post-input-group" id="totalWeightGroup" style="display: none;">
+                        <div class="post-input-group">
                             <label for="totalPostWeightInput">Total Post Weight (kg):</label>
                             <input type="number" id="totalPostWeightInput" value="0" step="0.01" min="0">
                         </div>
@@ -500,21 +526,12 @@
                     
                     <div class="post-row">
                         <div class="post-input-group">
-                            <label for="postValue">Value per Post (AED):</label>
-                            <input type="number" id="postValue" value="0" step="0.01" min="0">
-                        </div>
-                        
-                        <div class="post-input-group">
-                            <label for="calculatedWeight">Calculated Total Weight (kg):</label>
+                            <label for="calculatedWeight">Calculated Weight per Post (kg):</label>
                             <input type="number" id="calculatedWeight" value="0" step="0.01" min="0" readonly>
                         </div>
                     </div>
                     
                     <div class="post-summary">
-                        <div class="cost-item">
-                            <span class="cost-label">Total Post Value:</span>
-                            <span class="cost-value" id="totalPostValue">AED 0.00</span>
-                        </div>
                         <div class="cost-item">
                             <span class="cost-label">Weight per Post:</span>
                             <span class="cost-value" id="displayWeightPerPost">0.00 kg</span>
@@ -522,21 +539,28 @@
                     </div>
                 </div>
                 
-                <h2 class="section-title">Gate Details</h2>
-                
-                <div class="form-group">
-                    <label for="gateCost">Gate Cost (AED):</label>
-                    <input type="number" id="gateCost" value="0" step="0.01" min="0">
-                </div>
-                
-                <div class="form-group">
-                    <label for="gateQty">Gate Quantity:</label>
-                    <input type="number" id="gateQty" value="0" min="1">
-                </div>
-                
-                <div class="form-group">
-                    <label for="gateWeight">Gate Weight (kg):</label>
-                    <input type="number" id="gateWeight" value="0" step="0.01" min="0">
+                <!-- Gate Details - Collapsible -->
+                <div class="collapsible">
+                    <div class="collapsible-header" id="gateDetailsHeader">
+                        <span>Gate Details</span>
+                        <span class="collapsible-icon">▼</span>
+                    </div>
+                    <div class="collapsible-content" id="gateDetailsContent">
+                        <div class="form-group">
+                            <label for="gateCost">Gate Cost (AED):</label>
+                            <input type="number" id="gateCost" value="0" step="0.01" min="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="gateQty">Gate Quantity:</label>
+                            <input type="number" id="gateQty" value="0" min="1">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="gateWeight">Gate Weight (kg):</label>
+                            <input type="number" id="gateWeight" value="0" step="0.01" min="0">
+                        </div>
+                    </div>
                 </div>
                 
                 <button id="calculateBtn" class="btn">Calculate Total Cost</button>
@@ -568,43 +592,59 @@
                     </div>
                 </div>
                 
-                <div class="cost-breakdown">
-                    <h3>Material Cost Breakdown</h3>
-                    <div class="cost-item">
-                        <span class="cost-label">Cost per KM (40%):</span>
-                        <span class="cost-value" id="costPerKm">AED 0.00</span>
+                <!-- Material Cost Breakdown - Collapsible -->
+                <div class="collapsible">
+                    <div class="collapsible-header" id="materialBreakdownHeader">
+                        <span>Material Cost Breakdown</span>
+                        <span class="collapsible-icon">▼</span>
                     </div>
-                    <div class="cost-item">
-                        <span class="cost-label">Cost per Linear Meter:</span>
-                        <span class="cost-value" id="costPerLM">AED 0.00</span>
-                    </div>
-                    <div class="cost-item">
-                        <span class="cost-label">Cost per Post (60%):</span>
-                        <span class="cost-value" id="costPerPost">AED 0.00</span>
-                    </div>
-                    <div class="cost-item">
-                        <span class="cost-label">Cost per Post (Individual):</span>
-                        <span class="cost-value" id="individualPostCost">AED 0.00</span>
+                    <div class="collapsible-content" id="materialBreakdownContent">
+                        <div class="cost-breakdown">
+                            <div class="cost-item">
+                                <span class="cost-label">Cost per KM (40%):</span>
+                                <span class="cost-value" id="costPerKm">AED 0.00</span>
+                            </div>
+                            <div class="cost-item">
+                                <span class="cost-label">Cost per Linear Meter:</span>
+                                <span class="cost-value" id="costPerLM">AED 0.00</span>
+                            </div>
+                            <div class="cost-item">
+                                <span class="cost-label">Cost per Post (60%):</span>
+                                <span class="cost-value" id="costPerPost">AED 0.00</span>
+                            </div>
+                            <div class="cost-item">
+                                <span class="cost-label">Cost per Post (Individual):</span>
+                                <span class="cost-value" id="individualPostCost">AED 0.00</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="post-details">
-                    <h3>Weight Summary</h3>
-                    <div class="cost-item">
-                        <span class="cost-label">Total Post Weight:</span>
-                        <span class="cost-value" id="displayTotalPostWeight">0.00 kg</span>
+                <!-- Weight Summary - Collapsible -->
+                <div class="collapsible">
+                    <div class="collapsible-header" id="weightSummaryHeader">
+                        <span>Weight Summary</span>
+                        <span class="collapsible-icon">▼</span>
                     </div>
-                    <div class="cost-item">
-                        <span class="cost-label">Total Gate Weight:</span>
-                        <span class="cost-value" id="displayTotalGateWeight">0.00 kg</span>
-                    </div>
-                    <div class="cost-item">
-                        <span class="cost-label">Total Weight (Posts + Gates):</span>
-                        <span class="cost-value" id="displayTotalWeight">0.00 kg</span>
-                    </div>
-                    <div class="cost-item">
-                        <span class="cost-label">Weight per Linear Meter:</span>
-                        <span class="cost-value" id="displayWeightPerLM">0.00 kg</span>
+                    <div class="collapsible-content" id="weightSummaryContent">
+                        <div class="post-details">
+                            <div class="cost-item">
+                                <span class="cost-label">Total Post Weight:</span>
+                                <span class="cost-value" id="displayTotalPostWeight">0.00 kg</span>
+                            </div>
+                            <div class="cost-item">
+                                <span class="cost-label">Total Gate Weight:</span>
+                                <span class="cost-value" id="displayTotalGateWeight">0.00 kg</span>
+                            </div>
+                            <div class="cost-item">
+                                <span class="cost-label">Total Weight (Posts + Gates):</span>
+                                <span class="cost-value" id="displayTotalWeight">0.00 kg</span>
+                            </div>
+                            <div class="cost-item">
+                                <span class="cost-label">Weight per Linear Meter:</span>
+                                <span class="cost-value" id="displayWeightPerLM">0.00 kg</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -712,17 +752,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             const calculateBtn = document.getElementById('calculateBtn');
             const printBtn = document.getElementById('printBtn');
-            const autoWeightRadio = document.getElementById('autoWeight');
-            const manualWeightRadio = document.getElementById('manualWeight');
-            const individualWeightGroup = document.getElementById('individualWeightGroup');
-            const totalWeightGroup = document.getElementById('totalWeightGroup');
             
             // Initial calculation
             calculateCosts();
-            
-            // Add event listeners to weight type radio buttons
-            autoWeightRadio.addEventListener('change', toggleWeightInput);
-            manualWeightRadio.addEventListener('change', toggleWeightInput);
             
             // Add event listener to calculate button
             calculateBtn.addEventListener('click', calculateCosts);
@@ -732,7 +764,7 @@
             
             // Add event listeners to input fields for real-time calculation
             const inputFields = [
-                'distance', 'rate', 'postQty', 'postWeight', 'postValue', 
+                'distance', 'rate', 'postQty', 
                 'gateCost', 'gateQty', 'gateWeight', 'totalPostWeightInput'
             ];
             inputFields.forEach(field => {
@@ -742,15 +774,31 @@
             // Add event listener to installation checkbox
             document.getElementById('installation').addEventListener('change', calculateCosts);
             
-            function toggleWeightInput() {
-                if (autoWeightRadio.checked) {
-                    individualWeightGroup.style.display = 'flex';
-                    totalWeightGroup.style.display = 'none';
+            // Add event listeners for collapsible sections
+            document.getElementById('materialBreakdownHeader').addEventListener('click', function() {
+                toggleCollapsible('materialBreakdownContent', 'materialBreakdownHeader');
+            });
+            
+            document.getElementById('weightSummaryHeader').addEventListener('click', function() {
+                toggleCollapsible('weightSummaryContent', 'weightSummaryHeader');
+            });
+            
+            document.getElementById('gateDetailsHeader').addEventListener('click', function() {
+                toggleCollapsible('gateDetailsContent', 'gateDetailsHeader');
+            });
+            
+            function toggleCollapsible(contentId, headerId) {
+                const content = document.getElementById(contentId);
+                const header = document.getElementById(headerId);
+                const icon = header.querySelector('.collapsible-icon');
+                
+                if (content.classList.contains('expanded')) {
+                    content.classList.remove('expanded');
+                    icon.classList.remove('expanded');
                 } else {
-                    individualWeightGroup.style.display = 'none';
-                    totalWeightGroup.style.display = 'flex';
+                    content.classList.add('expanded');
+                    icon.classList.add('expanded');
                 }
-                calculateCosts();
             }
             
             function calculateCosts() {
@@ -758,32 +806,18 @@
                 const distance = parseFloat(document.getElementById('distance').value) || 0;
                 const rate = parseFloat(document.getElementById('rate').value) || 0;
                 const postQty = parseInt(document.getElementById('postQty').value) || 0;
-                const postWeight = parseFloat(document.getElementById('postWeight').value) || 0;
-                const postValue = parseFloat(document.getElementById('postValue').value) || 0;
                 const totalPostWeightInput = parseFloat(document.getElementById('totalPostWeightInput').value) || 0;
                 const gateCost = parseFloat(document.getElementById('gateCost').value) || 0;
                 const gateQty = parseInt(document.getElementById('gateQty').value) || 0;
                 const gateWeight = parseFloat(document.getElementById('gateWeight').value) || 0;
                 const includeInstallation = document.getElementById('installation').checked;
                 
-                // Calculate post values based on weight input method
-                let totalPostWeight, weightPerPost;
-                
-                if (autoWeightRadio.checked) {
-                    // Calculate weight automatically
-                    totalPostWeight = postQty * postWeight;
-                    weightPerPost = postWeight;
-                } else {
-                    // Use manual total weight
-                    totalPostWeight = totalPostWeightInput;
-                    weightPerPost = postQty > 0 ? totalPostWeight / postQty : 0;
-                }
-                
-                const totalPostValue = postQty * postValue;
+                // Calculate post values
+                const totalPostWeight = totalPostWeightInput;
+                const weightPerPost = postQty > 0 ? totalPostWeight / postQty : 0;
                 
                 // Update calculated values in UI
-                document.getElementById('calculatedWeight').value = totalPostWeight.toFixed(2);
-                document.getElementById('totalPostValue').textContent = formatCurrency(totalPostValue);
+                document.getElementById('calculatedWeight').value = weightPerPost.toFixed(2);
                 document.getElementById('displayWeightPerPost').textContent = formatWeight(weightPerPost);
                 
                 // Calculate gate values
